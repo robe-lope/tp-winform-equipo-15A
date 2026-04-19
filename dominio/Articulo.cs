@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TPWinForm_equipo_15A
+namespace dominio
 {
     public class Articulo
     {
@@ -19,6 +19,8 @@ namespace TPWinForm_equipo_15A
 
         public int IdCategoria { get; set; }
         public string CategoriaDescripcion { get; set; }
+
+        public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
 
     }
 }
