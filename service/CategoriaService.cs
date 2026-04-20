@@ -18,7 +18,7 @@ namespace TP_WinForm
             {
                 datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS");
 
-                // IMPORTANTE: Primero ejecutamos la lectura para abrir la conexión y llenar el Lector
+                
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -43,7 +43,7 @@ namespace TP_WinForm
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                // Como el Id es IDENTITY (autonumérico), solo insertamos la Descripcion
+                
                 datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES ('" + cat.Descripcion + "')");
                 datos.ejecutarAccion();
             }
