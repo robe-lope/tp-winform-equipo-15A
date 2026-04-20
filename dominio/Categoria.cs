@@ -10,7 +10,6 @@ namespace TP_WinForm
     {
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        // Igual que en Marca, esto facilitará mostrarla en listas desplegables
         public override string ToString()
         {
             return Descripcion;
