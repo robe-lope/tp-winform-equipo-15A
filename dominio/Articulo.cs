@@ -15,11 +15,10 @@ namespace dominio
         public decimal Precio { get; set; }
 
         public int IdMarca { get; set; }
-        public string MarcaDescripcion { get; set; }   
 
         public int IdCategoria { get; set; }
-        public string CategoriaDescripcion { get; set; }
 
+        public string UrlImagen { get; set; }
         public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
 
     }

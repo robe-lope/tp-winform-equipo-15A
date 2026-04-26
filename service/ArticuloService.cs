@@ -17,7 +17,8 @@ namespace service
 
             try
             {
-                datos.setearConsulta("select id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio FROM ARTICULOS")
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, A.Precio,(SELECT Descripcion FROM MARCAS WHERE Id = A.IdMarca) AS DescripcionMarca,(SELECT Descripcion FROM CATEGORIAS WHERE Id = A.IdCategoria) AS DescripcionCategoria,(SELECT TOP 1 ImagenUrl FROM IMAGENES WHERE IdArticulo = A.Id) AS UrlImagen FROM ARTICULOS A");
+                datos.ejecutarLectura(); 
 
                 while (datos.Lector.Read()) {
                     Articulo aux = new Articulo();
@@ -25,6 +26,7 @@ namespace service
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.UrlImagen = Convert.IsDBNull(datos.Lector["UrlImagen"]) ? "" : datos.Lector["UrlImagen"].ToString();
                     aux.IdMarca = (int)datos.Lector["IdMarca"];
                     aux.IdCategoria = (int)datos.Lector["IdCategoria"];
                     aux.Precio = (decimal)datos.Lector["Precio"];
@@ -48,12 +50,20 @@ namespace service
 
         public void agregar(Articulo art)
         {
+        
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
 
-                datos.setearConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values ('" + art.Codigo + "', '" + art.Nombre + "', '" + art.Descripcion + "', " + art.IdMarca + ", " + art.IdCategoria + ", " + art.Precio + ")");
+                datos.setearConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio) values (@Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @Precio)");
+                datos.setearParametro("@Codigo", art.Codigo);
+                datos.setearParametro("@Nombre", art.Nombre);
+                datos.setearParametro("@Descripcion", art.Descripcion); 
+                datos.setearParametro("@IdMarca", art.IdMarca);
+                datos.setearParametro("@IdCategoria", art.IdCategoria);
+                datos.setearParametro("@Precio", art.Precio);
+
                 datos.ejecutarAccion();
 
 
@@ -75,7 +85,15 @@ namespace service
 
             try
             {
-                datos.setearConsulta("update ARTICULOS set Codigo = '" + art.Codigo + "', Nombre = '" + art.Nombre + "', Descripcion = '" + art.Descripcion + "', IdMarca = " + art.IdMarca + ", IdCategoria = " + art.IdCategoria + ", Precio = " + art.Precio + " where Id = " + art.Id);
+                datos.setearConsulta("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria, Precio = @Precio where Id = @Id");
+                datos.setearParametro("@Codigo", art.Codigo);
+                datos.setearParametro("@Nombre", art.Nombre);
+                datos.setearParametro("@Descripcion", art.Descripcion);
+                datos.setearParametro("@IdMarca", art.IdMarca);
+                datos.setearParametro("@IdCategoria", art.IdCategoria);
+                datos.setearParametro("@Precio", art.Precio);
+                datos.setearParametro("@Id", art.Id);
+
                 datos.ejecutarAccion(); 
             }
             catch (Exception ex)
@@ -89,13 +107,14 @@ namespace service
             }
         }
 
-        public void eliminar(Articulo art)
+        public void eliminar(int id)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("delete from ARTICULOS where Id = " + art.Id);
+                datos.setearConsulta("delete from ARTICULOS where Id = @Id");
+                datos.setearParametro("@Id", id);   
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -107,5 +126,31 @@ namespace service
                 datos.cerrarConexion();
             }   
         }
+
+        public int obtenerUltimoId()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int id = 0;
+            try
+            {
+                datos.setearConsulta("SELECT MAX(Id) FROM ARTICULOS");
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    id = (int)datos.Lector[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return id;
+        }
+
+
     }
 }
