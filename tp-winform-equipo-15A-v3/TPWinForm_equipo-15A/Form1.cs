@@ -126,7 +126,7 @@ namespace TPWinForm_equipo_15A
 
             if (marcaSeleccionada != null && marcaSeleccionada.Id != 0)
             {
-                listaFiltrada = listaFiltrada.FindAll(x => x.Marca.Id == marcaSeleccionada.Id);
+                listaFiltrada = listaFiltrada.FindAll(x => x.IdMarca == marcaSeleccionada.Id);
             }
 
             if (categoriaSeleccionada != null && categoriaSeleccionada.Id != 0)

@@ -63,7 +63,7 @@ namespace TPWinForm_equipo_15A
                     art.Codigo = txtCodigo.Text;
                     art.Precio = decimal.Parse(txtPrecio.Text);
                     art.IdCategoria = (int)cmbCategoria.SelectedValue;
-                    art.Marca.Id = (int)cmbMarca.SelectedValue;
+                    art.IdMarca = (int)cmbMarca.SelectedValue;
 
 
                     img.ImagenUrl = txtUrlImagen.Text;
@@ -115,7 +115,7 @@ namespace TPWinForm_equipo_15A
                     txtDescripcion.Text = art.Descripcion;
                     txtPrecio.Text = art.Precio.ToString();
                     cmbCategoria.SelectedValue = art.IdCategoria;
-                    cmbMarca.SelectedValue = art.Marca.Id;
+                    cmbMarca.SelectedValue = art.IdMarca;
                     txtUrlImagen.Text = art.UrlImagen;
                     cargarImg(art.UrlImagen);
                 }

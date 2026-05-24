@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dominio
+namespace TPWinForm_equipo_15A
 {
     public class Articulo
     {
@@ -14,12 +14,11 @@ namespace dominio
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
 
-        public Marca Marca { get; set; }
+        public int IdMarca { get; set; }
+        public string MarcaDescripcion { get; set; }   
 
         public int IdCategoria { get; set; }
-
-        public string UrlImagen { get; set; }
-        public List<Imagen> Imagenes { get; set; } = new List<Imagen>();
+        public string CategoriaDescripcion { get; set; }
 
     }
 }

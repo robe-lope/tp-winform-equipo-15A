@@ -27,9 +27,7 @@ namespace service
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     aux.UrlImagen = Convert.IsDBNull(datos.Lector["UrlImagen"]) ? "" : datos.Lector["UrlImagen"].ToString();
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = (string)datos.Lector["DescripcionMarca"];
+                    aux.IdMarca = (int)datos.Lector["IdMarca"];
                     aux.IdCategoria = (int)datos.Lector["IdCategoria"];
                     aux.Precio = (decimal)datos.Lector["Precio"];
                     aux.Precio = Math.Round(aux.Precio, 2);
@@ -62,7 +60,7 @@ namespace service
                 datos.setearParametro("@Codigo", art.Codigo);
                 datos.setearParametro("@Nombre", art.Nombre);
                 datos.setearParametro("@Descripcion", art.Descripcion); 
-                datos.setearParametro("@IdMarca", art.Marca.Id);
+                datos.setearParametro("@IdMarca", art.IdMarca);
                 datos.setearParametro("@IdCategoria", art.IdCategoria);
                 datos.setearParametro("@Precio", art.Precio);
 
@@ -79,6 +77,7 @@ namespace service
             {
                 datos.cerrarConexion();
             }
+
         }
 
         public void modificar(Articulo art)
@@ -91,7 +90,7 @@ namespace service
                 datos.setearParametro("@Codigo", art.Codigo);
                 datos.setearParametro("@Nombre", art.Nombre);
                 datos.setearParametro("@Descripcion", art.Descripcion);
-                datos.setearParametro("@IdMarca", art.Marca.Id);
+                datos.setearParametro("@IdMarca", art.IdMarca);
                 datos.setearParametro("@IdCategoria", art.IdCategoria);
                 datos.setearParametro("@Precio", art.Precio);
                 datos.setearParametro("@Id", art.Id);
