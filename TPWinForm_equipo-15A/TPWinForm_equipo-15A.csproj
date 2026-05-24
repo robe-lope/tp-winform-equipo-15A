@@ -52,8 +52,56 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAccionCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAccionCategoria.Designer.cs">
+      <DependentUpon>FormAccionCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAccionMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAccionMarca.Designer.cs">
+      <DependentUpon>FormAccionMarca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormArticulo.Designer.cs">
+      <DependentUpon>FormArticulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCategoria.Designer.cs">
+      <DependentUpon>FormCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMarca.Designer.cs">
+      <DependentUpon>FormMarca.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAccionCategoria.resx">
+      <DependentUpon>FormAccionCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAccionMarca.resx">
+      <DependentUpon>FormAccionMarca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormArticulo.resx">
+      <DependentUpon>FormArticulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCategoria.resx">
+      <DependentUpon>FormCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMarca.resx">
+      <DependentUpon>FormMarca.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +123,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dominio\dominio.csproj">
+      <Project>{c44d50a1-2c63-4c8d-834b-6a9b4ead1790}</Project>
+      <Name>dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\service\service.csproj">
+      <Project>{3a46ecb0-e4a7-4b42-9514-14c52c495f39}</Project>
+      <Name>service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

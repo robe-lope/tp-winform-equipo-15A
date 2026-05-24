@@ -77,6 +77,7 @@ namespace service
             {
                 datos.cerrarConexion();
             }
+
         }
 
         public void modificar(Articulo art)

@@ -1,94 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using service;
+using dominio;
 
-namespace TP_WinForm
+namespace service
 {
-    internal class CategoriaService
-    {
-        public List<Categoria> listar()
-        {
-            List<Categoria> listaCat = new List<Categoria>();
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS");
+	public class CategoriaService
+	{
+		public List<Categoria> listar()
+		{
+			List<Categoria> listaCat = new List<Categoria>();
+			AccesoDatos datos = new AccesoDatos();
 
-                
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    Categoria aux = new Categoria();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    listaCat.Add(aux);
-                }
-                return listaCat;
+			try
+			{
+				datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS");
+				datos.ejecutarLectura();
+
+				while (datos.Lector.Read())
+				{
+					Categoria aux = new Categoria();
+					aux.Id = (int)datos.Lector["Id"];
+					aux.Descripcion = (string)datos.Lector["Descripcion"];
+					listaCat.Add(aux);
+				}
+				return listaCat;
+
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+
+		public void agregar(Categoria cat)
+		{
+			AccesoDatos datos = new AccesoDatos();
+
+			try
+			{
+
+                datos.setearConsulta("insert into CATEGORIA (Descripcion) values (@Descripcion)");
+				datos.setearParametro("@Descripcion", cat.Descripcion);
+                datos.ejecutarAccion();
+
+
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-        public void agregar(Categoria cat)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                
-                datos.setearConsulta("INSERT INTO CATEGORIAS (Descripcion) VALUES ('" + cat.Descripcion + "')");
+			catch (Exception ex)
+			{
+
+				throw;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+
+		public void modificar(Categoria cat)
+		{
+			AccesoDatos datos = new AccesoDatos();
+
+			try
+			{
+				datos.setearConsulta("update Categorias set Descripcion = @Descripcion where id = @Id");
+				datos.setearParametro("@Descripcion", cat.Descripcion);
+				datos.setearParametro("@Id", cat.Id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex)
-            {
-                throw ex;
+			catch (Exception ex)
+			{
+
+				throw;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+
+			}
+		}
+
+		public void eliminar(Categoria cat)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			try
+			{
+				datos.setearConsulta("delete from Categorias where id = @Id");
+				datos.setearParametro("@Id", cat.Id);
+				datos.ejecutarAccion();
             }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+			catch (Exception ex)
+			{
+
+				throw;
+			}
         }
-        public void modificar(Categoria cat)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = '" + cat.Descripcion + "' WHERE Id = " + cat.Id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-        public void eliminar(int id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                datos.setearConsulta("DELETE FROM CATEGORIAS WHERE Id = " + id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-    }
+	}
 }
